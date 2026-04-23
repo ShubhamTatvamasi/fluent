@@ -9,7 +9,7 @@ config:
         Host               opensearch-cluster-master.opensearch
         Port               9200
         Index              airflow-logs
-        Logstash_Format    On
+        Logstash_Format    Off
         Retry_Limit        False
         Suppress_Type_Name On
         tls                Off
