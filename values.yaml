@@ -1,13 +1,29 @@
+flush: 5
+logLevel: info
+# logLevel: debug
 config:
   outputs: |
     [OUTPUT]
-        Name            opensearch
-        Match           kube.*
-        Host            opensearch-cluster-master.opensearch
-        Port            9200
-        Index           airflow-logs
-        Logstash_Format On
-        Retry_Limit     False
+        Name               opensearch
+        Match              kube.*
+        Host               opensearch-cluster-master.opensearch
+        Port               9200
+        Index              airflow-logs
+        Logstash_Format    On
+        Retry_Limit        False
         Suppress_Type_Name On
-        tls             Off
-        tls.verify      Off
+        tls                Off
+        tls.verify         Off
+        Generate_ID        On
+
+  filters: |
+    [FILTER]
+        Name                kubernetes
+        Match               kube.*
+        Merge_Log           Off
+        Keep_Log            On
+
+    [FILTER]
+        Name    grep
+        Match   kube.*
+        Regex   $kubernetes['namespace_name'] ^airflow(-.*)?$
