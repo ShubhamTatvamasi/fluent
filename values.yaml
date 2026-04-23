@@ -1,0 +1,13 @@
+config:
+  outputs: |
+    [OUTPUT]
+        Name            opensearch
+        Match           kube.*
+        Host            opensearch-cluster-master.opensearch
+        Port            9200
+        Index           airflow-logs
+        Logstash_Format On
+        Retry_Limit     False
+        Suppress_Type_Name On
+        tls             Off
+        tls.verify      Off
